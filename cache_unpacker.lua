@@ -25,7 +25,7 @@ end )
 local cacheFolder = 'cache/lua/'
 local skipLenght = 4 * 8
 
-local function saveResults()
+hook.Add( 'ClientConnected', Plugin.Name, function()
     if not stopWatch then return end
     if not activeFolder then return end
 
@@ -46,11 +46,7 @@ local function saveResults()
             filesystem.AsyncWrite( activeFolder .. '/' .. fileName, string.sub( luaCode, 1, #luaCode - 1 ) )
         end
     end
-end
 
-hook.Add( 'ClientConnected', Plugin.Name, saveResults )
-hook.Add( 'ClientDisconnected', Plugin.Name, function()
-    saveResults()
     activeFolder = nil
     stopWatch = nil
 end )
